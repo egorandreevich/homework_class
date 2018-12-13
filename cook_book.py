@@ -1,3 +1,4 @@
+from pprint import pprint
 with open('cooking_list.txt', 'r') as f:
     cook_book = {}
 
@@ -15,16 +16,19 @@ with open('cooking_list.txt', 'r') as f:
         return cook_book
 
     def get_shop_list_by_dishes(dishes, person_count):
+        shop_list_dict = {}
         for dish in dishes:
             for key, value in cook_book.items():
-                shop_list = {}
                 if key in dish:
                     shop_list = cook_book.get(dish)
                     for ingr in shop_list:
-                        shop_list_dict = {}
-                        shop_list_dict[ingr['ingridient_name']] = {'measure': ingr['measure'], 'quantity': (
-                                    int(ingr['quantity']) * (int(person_count)))}
-                        print(shop_list_dict)
+                        if ingr['ingridient_name'] not in shop_list_dict.keys():
+                            shop_list_dict[ingr['ingridient_name']] = {'measure': ingr['measure'], 'quantity': (
+                                        int(ingr['quantity']) * (int(person_count)))}
+                        else:
+                            shop_list_dict[ingr['ingridient_name']] = {'measure': ingr['measure'], 'quantity': (
+                                    int(ingr['quantity']) * (int(person_count * 2)))}
+        pprint(shop_list_dict)
 
     create_cook_book()
     get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2)
