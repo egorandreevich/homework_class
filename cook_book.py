@@ -1,8 +1,8 @@
 from pprint import pprint
 with open('cooking_list.txt', 'r') as f:
-    cook_book = {}
 
     def create_cook_book():
+        cook_book = {}
         for line in f:
             dish_name = line.strip()
             ing_amount = f.readline()
@@ -16,6 +16,7 @@ with open('cooking_list.txt', 'r') as f:
         return cook_book
 
     def get_shop_list_by_dishes(dishes, person_count):
+        cook_book = create_cook_book()
         shop_list_dict = {}
         for dish in dishes:
             for key, value in cook_book.items():
@@ -30,5 +31,5 @@ with open('cooking_list.txt', 'r') as f:
                                     int(ingr['quantity']) * (int(person_count * 2)))}
         pprint(shop_list_dict)
 
-    create_cook_book()
     get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2)
+
